@@ -25,9 +25,9 @@ class FileStorage:
         Return:
             returns a dictionary of __object
         """
-        if cls:
+        if cls is not None:
             new_dict = {}
-            for k, v in self.__objects.items():
+            for k, v in FileStorage.__objects.items():
                 if v.__class__ == cls:
                     new_dict[k] = v
             return new_dict
