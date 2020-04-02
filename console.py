@@ -3,7 +3,7 @@
 import cmd
 from models import storage
 from datetime import datetime
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.user import User
 from models.state import State
 from models.city import City
@@ -11,6 +11,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from shlex import split
+import re
 
 
 class HBNBCommand(cmd.Cmd):
@@ -41,14 +42,27 @@ class HBNBCommand(cmd.Cmd):
         try:
             if not line:
                 raise SyntaxError()
-            my_list = line.split(" ")
-            obj = eval("{}()".format(my_list[0]))
+            args = re.split(" |=", line)
+            print(args)
+            obj = eval(args[0])()
+            for i in range(1, len(args), 2):
+                key = args[i]
+                val = args[i + 1]
+                if "_" in key:
+                    key = key.replace("_", " ")
+                if '"' in val:
+                    val = val.replace('"', "")
+                elif "." in val:
+                    val = float(val)
+                else:
+                    val = int(val)
+                setattr(obj, key, val)
             obj.save()
-            print("{}".format(obj.id))
+            print(obj.id)
         except SyntaxError:
             print("** class name missing **")
         except NameError:
-            print("** class doesn't exist **")
+            print("** class doesn't exist Create**")
 
     def do_show(self, line):
         """Prints the string representation of an instance
