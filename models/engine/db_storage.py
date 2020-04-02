@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """DB storage"""
-from models.base_model impor BaseModel, BaseModel
+from models.base_model import BaseModel, BaseModel
 from models.user import User
 from models.state import State
 from models.city import City
