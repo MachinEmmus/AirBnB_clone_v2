@@ -21,8 +21,8 @@ class DBStorage:
     def __init__(self):
         """constructor"""
         config = "{}+{}://{}:{}@{}:{}/{}".format(
-            'mysql', 'mysqldb', os.getenv('HBNB_MYSQL_USER'),\
-            os.getenv('HBNB_MYSQL_PWD'), os.getenv('HBNB_MYSQL_HOST'),\
+            'mysql', 'mysqldb', os.getenv('HBNB_MYSQL_USER'),
+            os.getenv('HBNB_MYSQL_PWD'), os.getenv('HBNB_MYSQL_HOST'),
             3306, os.getenv('HBNB_MYSQL_DB')
         )
 
@@ -31,7 +31,7 @@ class DBStorage:
         if os.getenv('HBNB_ENV') == "test":
             Base.metadata.drop_all(bind=self.__engine)
 
-    def all(self, cls=None)
+    def all(self, cls=None):
         """get all
         """
         new_dict = {}
@@ -71,14 +71,14 @@ class DBStorage:
         """reload
         """
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine,\
-            expire_on_commit=False
+        session_factory = sessionmaker(
+            bind=self.__engine, expire_on_commit=False
         )
 
         Session = scoped_session(session_factory)
         self.__session = Session()
 
-    def close(self)
+    def close(self):
         """close
         """
         self.__session.close()
