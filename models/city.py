@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """This is the city class"""
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
 import os
 
 
@@ -17,6 +18,7 @@ class City(BaseModel, Base):
     if hbnb_storage = "db":
         state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
         name = Column(String(128), nullable=False)
+        places = relationship("Place", backref="cties", cascade="delete")
     else:
         state_id = ""
         name = ""
