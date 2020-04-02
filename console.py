@@ -43,7 +43,6 @@ class HBNBCommand(cmd.Cmd):
             if not line:
                 raise SyntaxError()
             args = re.split(" |=", line)
-            print(args)
             obj = eval(args[0])()
             for i in range(1, len(args), 2):
                 key = args[i]
