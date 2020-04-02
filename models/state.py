@@ -7,7 +7,6 @@ from sqlalchemy.orm import relationship
 import os
 
 
-
 class State(BaseModel, Base):
     """This is the class for State
     Attributes:
@@ -18,7 +17,7 @@ class State(BaseModel, Base):
     if hbnb_storage = "db":
         state_id = Column(String(128), nullable=False)
         cities = relationship("City", backref="state", cascade="delete")
-    else
+    else:
         name = ""
 
         @property
