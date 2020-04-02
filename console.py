@@ -47,8 +47,8 @@ class HBNBCommand(cmd.Cmd):
             for i in range(1, len(args), 2):
                 key = args[i]
                 val = args[i + 1]
-                if "_" in key:
-                    key = key.replace("_", " ")
+                if "_" in val:
+                    val = val.replace("_", " ")
                 if '"' in val:
                     val = val.replace('"', "")
                 elif "." in val:
