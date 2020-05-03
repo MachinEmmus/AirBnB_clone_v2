@@ -33,25 +33,15 @@ class DBStorage:
             Base.metadata.drop_all(bind=self.__engine)
 
     def all(self, cls=None):
-        """get all
-        """
+        """query on the current database session"""
         new_dict = {}
-        if cls:
-            records = self.__session.query(eval(cls)).all()
-            for v in records:
-                k = "{}.{}".format(type(v).__name__, v.id)
-                new_dict[k] = v
-
-        else:
-            models = ["City", "Place", "Review", "State", "User"]
-            for model in models:
-                records = self.__session.query(eval(model)).all()
-
-                for v in records:
-                    k = "{}.{}".format(type(v).__name__, v.id)
-                    new_dict[k] = v
-
-        return new_dict
+        for clss in classes:
+            if cls is None or cls is classes[clss] or cls is clss:
+                objs = self.__session.query(classes[clss]).all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj
+        return (new_dict)
 
     def new(self, obj):
         """add obj

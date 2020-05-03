@@ -21,18 +21,15 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """returns a dictionary
-        Return:
-            returns a dictionary of __object
-        """
-        if cls is not None:
-            new_dict = {}
-            for k, v in FileStorage.__objects.items():
-                if v.__class__ == cls:
-                    new_dict[k] = v
-            return new_dict
-        else:
-            return self.__objects
+        """query on the current database session"""
+        new_dict = {}
+        for clss in classes:
+            if cls is None or cls is classes[clss] or cls is clss:
+                objs = self.__session.query(classes[clss]).all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj
+        return (new_dict)
 
     def new(self, obj):
         """sets __object to given obj
